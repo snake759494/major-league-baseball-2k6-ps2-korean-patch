@@ -2,7 +2,7 @@
 1) 실행파일: UTF-16/ASCII 문구 제자리 번역 + 한글 출력 코드 패치
 2) 폰트 청크(FONT): 한글 동적 캐시 블록 추가
 3) STBL(도움말·퀴즈 등) 재작성, MANU(매뉴얼) 제자리 번역, 기타 데이터 UTF-16 제자리 번역
-바뀐 아카이브 항목은 '3.' 파트 끝에 덧붙이고(파트 위치는 그대로), 그 뒤 파일들을 밀어낸 뒤 아카이브 표·ISO9660·UDF 갱신."""
+바뀐 아카이브 항목은 '3.' 파트를 ISO 끝으로 옮긴 뒤 그 뒤에 덧붙이고 아카이브 표·ISO9660·UDF 갱신."""
 import os, sys, struct, shutil, json, time, subprocess, re
 sys.path.insert(0, os.path.dirname(__file__))
 import iso, isoedit, vc, lz, kfont, ktext, codepatch, chunks, stbl
@@ -28,7 +28,7 @@ def is_comp(b, o): return struct.unpack_from('<I', b, o + 16)[0] == 0xfeedbeef
 U16 = re.compile(rb'(?:[\x09\x0a\x0d\x20-\x7e]\x00){1,}\x00\x00')
 # 실행파일 안에서 화면 표시와 리소스 조회 키를 겸하는 이름들이 모인 구간(구장 노드, 유니폼 부위 등).
 # 번역하면 구장/유니폼 모델을 못 찾음 → 이 구간의 한 단어 문자열은 원문 유지
-ELF_KEYRANGES = [(0x4a9c00, 0x4b1400), (0x4bc780, 0x4bfd00)]
+ELF_KEYRANGES = [(0x4a9c00, 0x4b1400), (0x4bc780, 0x4bfd00), (0x538e00, 0x539800)]   # 3번째: LOADING/CAMERA 등 화면 요소 이름(v1.2)
 def inplace16(data, tr, groups, lo=0, hi=None, room_pad=False, stats=None):
     d = bytearray(data); n = 0; hi = len(d) if hi is None else hi
     for m in U16.finditer(data, lo, hi):
@@ -219,8 +219,8 @@ def patch_elf(elf, tr, stats):
     # 문자열 데이터 구간(.rodata/.data)만: 코드 영역의 우연한 바이트열은 건드리지 않음
     lo, hi = 0x4a6000, 0x6ac6b4
     if os.environ.get('KO_ELFR'): lo, hi = (int(x, 16) for x in os.environ['KO_ELFR'].split(','))   # 시험용
-    e2, n16 = inplace16(elf, tr, ['elf', 'ui'], lo, hi, room_pad=True, stats=stats)
-    e3, n8 = inplace8(e2, tr, ['elfa'], lo, hi, stats=stats)
+    e2, n16 = (elf, 0) if os.environ.get('KO_NOE16') else inplace16(elf, tr, ['elf', 'ui'], lo, hi, room_pad=True, stats=stats)   # 시험용 끄기
+    e3, n8 = (e2, 0) if os.environ.get('KO_NOE8') else inplace8(e2, tr, ['elfa'], lo, hi, stats=stats)
     e3 = bytearray(e3)
     for o in (0x4c0528, 0x4dcaf0, 0x4e2e99, 0x53f000):    # 선수 이니셜 서식 '%c. %s' -> '%c%s'
         assert e3[o:o + 7] == b'%c. %s' + bytes(1); e3[o:o + 7] = b'%c%s' + bytes(3)

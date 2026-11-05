@@ -5,8 +5,8 @@ PS2 북미판 **Major League Baseball 2K6 (SLUS-21235)**용 비공식 한국어 
 [패치 다운로드](https://github.com/snake759494/major-league-baseball-2k6-ps2-korean-patch/releases/latest) · [기술 설명](docs/TECHNICAL.md) · [재빌드](docs/BUILD.md) · [변경 기록](CHANGELOG.md) · [권리 안내](RIGHTS.md)
 
 릴리즈 첨부 파일은 다음과 같습니다.
-- 한글패치: **MLB_2K6_PS2_KO_v1.1.xdelta**
-- 와이드 패치: **SLUS-21235_42D69627.pnach**(한글판용), **SLUS-21235_88BB9A5C.pnach**(원본판용)
+- 한글패치: **MLB_2K6_PS2_KO_v1.2.xdelta**
+- 와이드 패치: **SLUS-21235_4291A1A3.pnach**(한글판용), **SLUS-21235_88BB9A5C.pnach**(원본판용)
 
 저장소에는 제작 소스, 번역, 와이드 패치만 공개합니다. 원본 디스크 이미지와 완성된 디스크 이미지, 추출한 게임 파일, 글꼴 파일, 외부 실행 파일은 포함하지 않습니다. GitHub가 자동으로 만드는 Source code ZIP/TAR는 저장소 소스를 압축한 것이며 게임 파일이 아닙니다.
 
@@ -29,12 +29,12 @@ PS2 북미판 **Major League Baseball 2K6 (SLUS-21235)**용 비공식 한국어 
 
 | 항목 | 값 |
 | --- | --- |
-| xdelta 크기 | 4,310,280 바이트 |
-| xdelta SHA-256 | `9eda25b026e9f19a2017bd57cf3fb134400e9d3c7d4b3cacb53dc5e7dc24b190` |
+| xdelta 크기 | 2,594,364 바이트 |
+| xdelta SHA-256 | `752325788e57c6763c84a777b3360cf0cddb88806f173c6dd4ba0a9a54f02745` |
 | 결과 ISO 크기 | 3,955,294,208 바이트 (원본과 같음) |
-| 결과 ISO MD5 | `4260464c68f1f39a90870a0dac481f2b` |
-| 결과 ISO SHA-256 | `1ee7c5771219bc80f4a8f800040115cd00f3aca0458e01c5249078409dc41402` |
-| 게임 CRC (PCSX2) | `42D69627` (원본 `88BB9A5C`) |
+| 결과 ISO MD5 | `62508448cc5319e3250c95e56d11801f` |
+| 결과 ISO SHA-256 | `71b97134e50251bd7b0d6acf08e65ef7fef5d657495953de57355fe17fa5b700` |
+| 게임 CRC (PCSX2) | `4291A1A3` (원본 `88BB9A5C`) |
 
 원본 게임 파일은 사용자가 직접 준비해야 합니다.
 
@@ -50,7 +50,7 @@ Get-FileHash -Algorithm MD5 -LiteralPath ".\Major League Baseball 2K6 (USA).iso"
 
 ### xdelta UI 사용
 
-1. 릴리즈에서 `MLB_2K6_PS2_KO_v1.1.xdelta`를 받습니다.
+1. 릴리즈에서 `MLB_2K6_PS2_KO_v1.2.xdelta`를 받습니다.
 2. xdelta3 패치를 지원하는 도구(예: xdelta UI)에서 **Apply Patch** 기능을 엽니다.
 3. **Patch**에는 xdelta 파일을, **Source File**에는 해시가 일치하는 원본 `.iso`를 선택합니다.
 4. **Output File**에는 새 파일 이름을 지정합니다(예: `Major League Baseball 2K6 (USA) (Korean).iso`).
@@ -61,10 +61,10 @@ xdelta는 호환성을 위해 압축·2차 압축·파일 경로 헤더 없이 �
 ### 명령줄 사용
 
 ```powershell
-.\xdelta3.exe -d -s ".\Major League Baseball 2K6 (USA).iso" '.\MLB_2K6_PS2_KO_v1.1.xdelta' '.\Major League Baseball 2K6 (USA) (Korean).iso'
+.\xdelta3.exe -d -s ".\Major League Baseball 2K6 (USA).iso" '.\MLB_2K6_PS2_KO_v1.2.xdelta' '.\Major League Baseball 2K6 (USA) (Korean).iso'
 ```
 
-해시 검사까지 한 번에 하려면 `python tools/apply_release.py --xdelta xdelta3.exe --source "Major League Baseball 2K6 (USA).iso" --patch MLB_2K6_PS2_KO_v1.1.xdelta --output "Major League Baseball 2K6 (USA) (Korean).iso"`를 쓰세요.
+해시 검사까지 한 번에 하려면 `python tools/apply_release.py --xdelta xdelta3.exe --source "Major League Baseball 2K6 (USA).iso" --patch MLB_2K6_PS2_KO_v1.2.xdelta --output "Major League Baseball 2K6 (USA) (Korean).iso"`를 쓰세요.
 
 ### PCSX2에서 실행
 
@@ -78,14 +78,14 @@ xdelta는 호환성을 위해 압축·2차 압축·파일 경로 헤더 없이 �
 
 | 파일 | 대상 | 게임 CRC |
 | --- | --- | --- |
-| `SLUS-21235_42D69627.pnach` | 이 한글패치 v1.0·v1.1을 적용한 게임 | `42D69627` |
+| `SLUS-21235_4291A1A3.pnach` | 이 한글패치 v1.2를 적용한 게임 | `4291A1A3` |
 | `SLUS-21235_88BB9A5C.pnach` | 원본 북미판(영문) | `88BB9A5C` |
 
 두 파일의 내용은 같습니다(고치는 위치가 두 판에서 같음). 파일 이름의 CRC만 다릅니다.
 
 ### 설치 (PCSX2 v2.x)
 
-1. 릴리즈에서 자신의 게임에 맞는 `.pnach` 파일을 받습니다. 한글판이면 `SLUS-21235_42D69627.pnach`입니다. 파일 이름을 바꾸지 마세요(PCSX2는 이름의 CRC로 게임을 찾습니다).
+1. 릴리즈에서 자신의 게임에 맞는 `.pnach` 파일을 받습니다. 한글판이면 `SLUS-21235_4291A1A3.pnach`입니다. 파일 이름을 바꾸지 마세요(PCSX2는 이름의 CRC로 게임을 찾습니다).
 2. PCSX2 `patches` 폴더에 넣습니다.
    - 설치판: `문서\PCSX2\patches\`
    - 휴대용판: `pcsx2-qt.exe`가 있는 폴더의 `patches\`
@@ -99,7 +99,7 @@ xdelta는 호환성을 위해 압축·2차 압축·파일 경로 헤더 없이 �
 ### 끄기·문제 해결
 
 - 끄려면 4번의 체크를 해제하고, 화면비를 4:3으로 되돌립니다.
-- 패치 탭에 항목이 보이지 않으면 파일 이름의 CRC와 게임의 CRC가 다른 것입니다. 게임을 실행한 뒤 **도구 → 로그 표시**에서 `CRC:` 줄을 확인하세요. 한글패치 v1.0·v1.1을 적용한 ISO면 `42D69627`, 원본이면 `88BB9A5C`가 나와야 합니다.
+- 패치 탭에 항목이 보이지 않으면 파일 이름의 CRC와 게임의 CRC가 다른 것입니다. 게임을 실행한 뒤 **도구 → 로그 표시**에서 `CRC:` 줄을 확인하세요. 한글패치 v1.0·v1.1을 적용한 ISO면 `4291A1A3`, 원본이면 `88BB9A5C`가 나와야 합니다.
 - 화면이 여전히 4:3이면 **설정 → 그래픽 → 화면비**를 16:9로 바꾸세요.
 - 와이드 모드는 게임이 켜질 때 정해집니다. 실행 중에 체크를 바꿨다면 게임을 다시 시작하세요. 패치를 켠 상태에서 만든 세이브 스테이트를 패치를 끈 상태로 불러와도 비율이 섞일 수 있습니다.
 - PCSX2 1.6 이하에서는 `cheats_ws` 폴더에 넣고 **와이드스크린 패치 사용**을 켜세요. 이 경우 `[Widescreen 16:9]` 줄을 지워야 할 수 있습니다.
@@ -139,7 +139,7 @@ xdelta는 호환성을 위해 압축·2차 압축·파일 경로 헤더 없이 �
 
 ## 알려진 한계
 
-- v1.0은 흐린 날씨(OVERCAST) 경기에서 로딩 중 화면이 깨지며 멈췄습니다. v1.1에서 고쳤습니다. 다른 구장·날씨 조합에서 멈추면 이슈로 알려 주세요.
+- v1.0·v1.1은 경기 로딩 중 가끔(3~5판에 한 번꼴) 흰 화면이나 검은 화면에서 멈췄습니다. v1.2에서 고쳤습니다. 그래도 멈추면 이슈로 알려 주세요.
 - 경기용 큰 글씨 폰트는 한 화면에 서로 다른 한글을 27~40자까지 표시할 수 있습니다. 이보다 많으면 글자가 섞여 보일 수 있습니다.
 - 장내 아나운서가 선수 이름을 부르는 기능은 확인하지 못했습니다. 이름 목록을 글자로 찾는다면 한글로 바꾼 선수의 이름을 부르지 않을 수 있습니다.
 - 일부 짧은 영문 라벨은 게임 내부 열쇠와 겹쳐 영문으로 남았습니다.

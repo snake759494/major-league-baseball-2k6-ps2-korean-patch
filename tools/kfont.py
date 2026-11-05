@@ -96,6 +96,9 @@ FONTSET = {'Arial_11': (0, 1.0, 0, (128, 256)),
            'help': (1, 18 / 15, 0, (256, 256)),
            'font8': (2, 1.0, 0, (0, 0))}
 KEEPHI = set()
+# 텍스처를 원래 크기로 두면서 칸을 늘리려고 소문자 a-z 자리를 한글 칸으로 쓰는 폰트(소문자는 대문자로 표시)
+RARE = r'#$<>@[\]^_`{|}'
+LOWDROP = set(os.environ['KO_LOWDROP'].split(',')) if os.environ.get('KO_LOWDROP') else set()
 _SETCACHE = {}
 def glyph_set(si, sylls):
     """세트 si 의 비트맵: (cw, ch, gw, gh, [4bpp 칸 바이트...])."""
@@ -139,10 +142,12 @@ def build(u, sylls, cfg=None):
     if os.environ.get('KO_SAMETEX') or W == 0: W, H = w0, h0
     if os.environ.get('KO_GROW') is not None and P['name'] not in os.environ['KO_GROW'].split(','): W, H = w0, h0   # 시험용
     lo, hi, G = P['ranges'][0]
+    lowdrop = P['name'] in LOWDROP and lo <= 0x41 and hi >= 0x7a
     occ = []
     for i in range(hi - lo + 1):
         I, F = glyph(u, G + 0x60 * i)
         if lo + i >= 0x80 and lo + i not in KEEPHI: continue      # 안 쓰는 라틴 확장 글자 자리 = 한글 칸
+        if lowdrop and (0x61 <= lo + i <= 0x7a or chr(lo + i) in RARE): continue   # 소문자·드문 기호 자리 = 한글 칸
         if F[18] > F[16]:
             occ.append((int(F[16] * w0) - 1, int(F[17] * h0) - 1, int(math.ceil(F[18] * w0)) + 1, int(math.ceil(F[19] * h0)) + 1))
     I, F = glyph(u, G + 0x60 * (ord('H') - lo))
@@ -172,6 +177,13 @@ def build(u, sylls, cfg=None):
     tex = (pix[:, 0::2] | (pix[:, 1::2] << 4)).astype(np.uint8).tobytes()
     gpu = tex + pal
     cpu = bytearray(u[:B0])
+    if lowdrop:
+        for ch_ in range(0x61, 0x7b):
+            d = G + 0x60 * (ch_ - lo); su = G + 0x60 * (ch_ - 0x20 - lo)
+            cpu[d:d + 0x60] = u[su:su + 0x60]
+        for c_ in RARE:                                   # 드문 기호는 공백으로
+            d = G + 0x60 * (ord(c_) - lo); su = G + 0x60 * (0x20 - lo)
+            cpu[d:d + 0x60] = u[su:su + 0x60]
     for i in range(hi - lo + 1):
         o = G + 0x60 * i + 0x50
         a0, b0, a1, b1 = struct.unpack_from('<4f', cpu, o)

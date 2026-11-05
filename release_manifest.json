@@ -1,10 +1,10 @@
 {
- "version": "v1.1",
- "date": "2026-11-05",
+ "version": "v1.2",
+ "date": "2026-11-06",
  "game": "Major League Baseball 2K6 (USA) / SLUS-21235 / PS2 (DVD5 ISO)",
- "asset": "MLB_2K6_PS2_KO_v1.1.xdelta",
- "asset_size": 4310280,
- "asset_sha256": "9eda25b026e9f19a2017bd57cf3fb134400e9d3c7d4b3cacb53dc5e7dc24b190",
+ "asset": "MLB_2K6_PS2_KO_v1.2.xdelta",
+ "asset_size": 2594364,
+ "asset_sha256": "752325788e57c6763c84a777b3360cf0cddb88806f173c6dd4ba0a9a54f02745",
  "xdelta_options": "xdelta3 -e -0 -S none -A (no compression, no secondary compression, no application header)",
  "source_iso_size": 3955294208,
  "source_iso_md5": "b88cfd4ae7f2cfca05febba6a3f79db0",
@@ -12,13 +12,13 @@
  "source_iso_sha256": "a3b73c9cea43f7400a079195f21bcb4712d908e8c1ec2ecfae8f3ebab5e0335e",
  "source_elf_crc": "88BB9A5C",
  "output_iso_size": 3955294208,
- "output_iso_md5": "4260464c68f1f39a90870a0dac481f2b",
- "output_iso_sha1": "62089acf8c9b3196aca615b749efdca67398efb6",
- "output_iso_sha256": "1ee7c5771219bc80f4a8f800040115cd00f3aca0458e01c5249078409dc41402",
- "output_elf_crc": "42D69627",
+ "output_iso_md5": "62508448cc5319e3250c95e56d11801f",
+ "output_iso_sha1": "fa7423e7dc5011431fb2a923003ab92a0b6476d4",
+ "output_iso_sha256": "71b97134e50251bd7b0d6acf08e65ef7fef5d657495953de57355fe17fa5b700",
+ "output_elf_crc": "4291A1A3",
  "widescreen": {
-  "SLUS-21235_42D69627.pnach": {
-   "for": "한글판 v1.0/v1.1 (CRC 42D69627)",
+  "SLUS-21235_4291A1A3.pnach": {
+   "for": "한글판 v1.2 (CRC 4291A1A3)",
    "size": 357,
    "sha256": "6e412fd4bcc1ee6a120ec1e5375cb9145cb7ce08f72fbe41f6a4b0d5a5157373"
   },
