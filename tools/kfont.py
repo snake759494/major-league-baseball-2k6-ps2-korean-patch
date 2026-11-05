@@ -76,6 +76,9 @@ def kglyph_images(sylls, ttf, px, slant):
 SETS = [('Galmuri11.ttf', 12, 'Arial_11', 1),
         ('NanumSquareNeo-cBd.ttf', 15, 'Arial_15_bold', 2),
         ('NanumSquareNeo-cBd.ttf', 22, 'font8', 2)]
+# v1.1: 흐린 날씨(OVERCAST) 경기 로딩에서 멈추던 문제 = 경기 중 그려지는 폰트(Arial_Black_*, font8)의
+#        텍스처 확장으로 인한 GS 메모리(VRAM) 부족. EE RAM 은 원인 아님(텍스처 원래 크기면 세트 데이터 ≈400KB 추가도 통과).
+#        → 그 폰트들은 텍스처 크기 (0, 0) = 원래 크기 유지(슬롯 수는 원래 빈칸만큼).
 # 폰트별 (세트, 표시 배율, 기울임, 텍스처 크기(가로, 세로))
 FONTSET = {'Arial_11': (0, 1.0, 0, (128, 256)),
            'Arial_11_bold': (0, 1.0, 0, (128, 256)),
@@ -86,12 +89,12 @@ FONTSET = {'Arial_11': (0, 1.0, 0, (128, 256)),
            'Arial_15_small_caps': (1, 13 / 15, 0, (128, 256)),
            'Arial_Black_13': (1, 13 / 15, 0, (128, 256)),
            'Arial_Black_15_Italic': (1, 1.0, 0.2, (128, 256)),
-           'Arial_Black_17': (1, 17 / 15, 0, (256, 256)),
-           'Arial_Black_20': (1, 20 / 15, 0, (256, 256)),
+           'Arial_Black_17': (1, 17 / 15, 0, (0, 0)),
+           'Arial_Black_20': (1, 20 / 15, 0, (0, 0)),
            'Arial_Black_25': (1, 24 / 15, 0, (256, 256)),
            'default': (1, 17 / 15, 0, (128, 256)),
            'help': (1, 18 / 15, 0, (256, 256)),
-           'font8': (2, 1.0, 0, (256, 512))}
+           'font8': (2, 1.0, 0, (0, 0))}
 KEEPHI = set()
 _SETCACHE = {}
 def glyph_set(si, sylls):
@@ -133,7 +136,8 @@ def build(u, sylls, cfg=None):
     tb0 = w0 * h0 // 2
     B0 = len(u) - (tb0 + 0x40)
     tex0 = u[B0:B0 + tb0]; pal = u[B0 + tb0:B0 + tb0 + 0x40]
-    if os.environ.get('KO_SAMETEX'): W, H = w0, h0
+    if os.environ.get('KO_SAMETEX') or W == 0: W, H = w0, h0
+    if os.environ.get('KO_GROW') is not None and P['name'] not in os.environ['KO_GROW'].split(','): W, H = w0, h0   # 시험용
     lo, hi, G = P['ranges'][0]
     occ = []
     for i in range(hi - lo + 1):

@@ -34,12 +34,14 @@ python work/tools/build.py
 xdelta는 다음 옵션으로 만듭니다(압축·2차 압축·경로 헤더 없음).
 
 ```
-xdelta3 -e -0 -S none -A -s "Major League Baseball 2K6 (USA).iso" "Major League Baseball 2K6 (USA) (Korean).iso" MLB_2K6_PS2_KO_v1.0.xdelta
+xdelta3 -e -0 -S none -A -s "Major League Baseball 2K6 (USA).iso" "Major League Baseball 2K6 (USA) (Korean).iso" MLB_2K6_PS2_KO_v1.1.xdelta
 ```
 
 시험용 환경 변수(`build.py`):
 - `KO_TARGETS`: 쉼표로 구분한 아카이브 항목 번호만 고칩니다.
 - `KO_NOELF`, `KO_NOCODE`, `KO_NOFONT`: 실행파일 문자열 / 코드 패치 / 폰트를 건너뜁니다.
+- `KO_EXCL`: 쉼표로 구분한 아카이브 항목 번호를 고치지 않습니다.
+- `KO_SAMETEX`: 모든 폰트 텍스처를 원래 크기로 둡니다. `KO_GROW`: 쉼표로 구분한 폰트 이름만 텍스처를 키웁니다(멈춤 원인 폰트를 좁힐 때 사용).
 - `KO_ELFR`: 실행파일 문자열 번역 범위(16진 `시작,끝`)를 제한합니다. 멈춤 원인을 이분 탐색할 때 썼습니다.
 
 ## 와이드 패치
@@ -78,3 +80,5 @@ python work/tools/widescreen.py SLUS_212.35 work/patches
 `tools/emu.py`는 PCSX2를 다른 창을 가리지 않게 띄우고, 키 입력·창 캡처·세이브 스테이트 메모리 읽기를 합니다. PCSX2는 `work/emu/`에 휴대용으로 두거나 `PCSX2_DIR` 환경 변수로 지정하세요. 실행 파일 이름은 `pcsx2-mlb2k6.exe`로 바꿔 둡니다(다른 PCSX2와 구분).
 
 `tools/ingame.py <ISO> <태그> [횟수]`는 부팅 후 시범 경기로 들어가 일정 간격으로 화면을 캡처합니다(키: ✕=K, ○=L, □=J, △=I, START=Enter). 경기 설정 화면에서는 ✕와 START를 번갈아 눌러야 경기가 시작됩니다.
+
+폰트나 텍스처를 바꿨다면 경기 조건 화면에서 날씨를 **OVERCAST(흐림)**, 시간을 **DAYTIME(낮)**으로 맞춰 경기 진입을 꼭 시험하세요. GS 메모리를 가장 많이 쓰는 조건이라 v1.0은 여기서 멈췄습니다. 날씨 목록은 오른쪽으로 RAINY → CLEAR → OVERCAST 순서이고, 시간대를 바꾸면 날씨가 다시 정해지므로 시간대를 먼저 고릅니다.

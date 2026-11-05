@@ -241,6 +241,7 @@ def main():
     targets |= {55, 79, 82, 83, 86, 87, 88, 89, 129, 135, 136} | set(range(98, 128)) | {k[0] for k in DATA16}
     if os.environ.get('KO_TARGETS') is not None:   # 시험용: 지정 항목만
         targets = {int(x) for x in os.environ['KO_TARGETS'].split(',') if x}
+    targets -= {int(x) for x in os.environ.get('KO_EXCL', '').split(',') if x}   # 시험용: 제외할 항목
     new = {}
     for i in sorted(targets):
         b = vc.read(tuple(rows[i]), SRC, P)
