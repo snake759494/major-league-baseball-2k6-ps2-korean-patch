@@ -1,0 +1,10 @@
+gametitle=Major League Baseball 2K6 (USA) (SLUS-21235)
+
+[Widescreen 16:9]
+gsaspectratio=16:9
+description=Enables the game's built-in 16:9 mode (forces the BIOS 16:9 screen check).
+author=Claude
+
+// 0x35CDF8: xori v0,v0,2 / sltiu v0,v0,1  ->  v0 = 1 (widescreen flag 0x8C0360 on)
+patch=1,EE,0035CDF8,word,24020001
+patch=1,EE,0035CE00,word,00000000
