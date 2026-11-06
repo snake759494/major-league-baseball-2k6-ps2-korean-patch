@@ -27,5 +27,15 @@
    "size": 357,
    "sha256": "6e412fd4bcc1ee6a120ec1e5375cb9145cb7ce08f72fbe41f6a4b0d5a5157373"
   }
+ },
+ "lite": {
+  "asset": "MLB_2K6_PS2_KO_v1.2_Lite.xdelta",
+  "asset_size": 2533871,
+  "asset_sha256": "9ce08abcf2258edf15e9fffdb3c1266eea7d5855d3fb73cf797ff8c5d5cc2c8c",
+  "build": "KO_LITE=1",
+  "output_iso_md5": "354d5615fd3d2b477db629e07e762af0",
+  "output_iso_sha1": "f019e48b2cfacf7ca034db676d8ab588b397631c",
+  "output_iso_sha256": "de6ab0db74d83004cd260b9d1a5a5a5ad6049ca72059a64415bc2256b7f3b2be",
+  "output_elf_crc": "4291A1A3"
  }
 }

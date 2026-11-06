@@ -96,6 +96,11 @@ FONTSET = {'Arial_11': (0, 1.0, 0, (128, 256)),
            'help': (1, 18 / 15, 0, (256, 256)),
            'font8': (2, 1.0, 0, (0, 0))}
 KEEPHI = set()
+# 라이트판(KO_LITE): EE RAM 최소화 — 한글 세트를 모두 1비트로 저장(추가 RAM 약 절반). 텍스처 크기는 일반판과 같음
+#   (텍스처를 모두 원래 크기로 두면 빈칸이 모자라 메모리 카드 안내·로딩 안내 글자가 섞임)
+LITE = bool(os.environ.get('KO_LITE'))
+if LITE:
+    SETS = [(t, px, own, 1) for t, px, own, _ in SETS]
 # 텍스처를 원래 크기로 두면서 칸을 늘리려고 소문자 a-z 자리를 한글 칸으로 쓰는 폰트(소문자는 대문자로 표시)
 RARE = r'#$<>@[\]^_`{|}'
 LOWDROP = set(os.environ['KO_LOWDROP'].split(',')) if os.environ.get('KO_LOWDROP') else set()

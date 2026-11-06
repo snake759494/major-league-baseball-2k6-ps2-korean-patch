@@ -42,6 +42,7 @@ xdelta3 -e -0 -S none -A -s "Major League Baseball 2K6 (USA).iso" "Major League 
 - `KO_NOELF`, `KO_NOCODE`, `KO_NOFONT`: 실행파일 문자열 / 코드 패치 / 폰트를 건너뜁니다.
 - `KO_EXCL`: 쉼표로 구분한 아카이브 항목 번호를 고치지 않습니다.
 - `KO_SAMETEX`: 모든 폰트 텍스처를 원래 크기로 둡니다. `KO_GROW`: 쉼표로 구분한 폰트 이름만 텍스처를 키웁니다(멈춤 원인 폰트를 좁힐 때 사용).
+- `KO_LITE`: 라이트판(한글 세트 모두 1비트 저장)으로 빌드합니다.
 - `KO_ELFR`: 실행파일 문자열 번역 범위(16진 `시작,끝`)를 제한합니다. 멈춤 원인을 이분 탐색할 때 썼습니다.
 
 ## 와이드 패치
