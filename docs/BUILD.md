@@ -34,7 +34,7 @@ python work/tools/build.py
 xdelta는 다음 옵션으로 만듭니다(압축·2차 압축·경로 헤더 없음).
 
 ```
-xdelta3 -e -0 -S none -A -s "Major League Baseball 2K6 (USA).iso" "Major League Baseball 2K6 (USA) (Korean).iso" MLB_2K6_PS2_KO_v1.3.xdelta
+xdelta3 -e -0 -S none -A -s "Major League Baseball 2K6 (USA).iso" "Major League Baseball 2K6 (USA) (Korean).iso" MLB_2K6_PS2_KO_v1.4.xdelta
 ```
 
 시험용 환경 변수(`build.py`):

@@ -56,12 +56,15 @@ def inplace16(data, tr, groups, lo=0, hi=None, room_pad=False, stats=None):
     return bytes(d), n
 
 A8 = re.compile(rb'[\x09\x0a\x0d\x20-\x7e]{2,}\x00')
+FORCE8_OK = {'VIP Profile %s created. Would you like to save it now?', 'Profile: %s'}
+
 def inplace8(data, tr, groups, lo, hi, stats=None):
     d = bytearray(data); n = 0
     for m in A8.finditer(data, lo, hi):
         o = m.start()
-        if o > 0 and d[o - 1] != 0 and d[o - 1] < 0x80: continue   # 앞이 ASCII 면 긴 문자열의 꼬리. 0x80 이상(실수 상수 끝 0xff 등)은 별개 문자열
         s = m.group()[:-1].decode()
+        # 앞 바이트가 0 이 아니면 건너뜀(긴 문자열의 꼬리이거나 실수 상수 뒤의 내부 표 이름일 수 있음). 확인된 안내 문장만 예외
+        if o > 0 and d[o - 1] != 0 and s not in FORCE8_OK: continue
         if ' ' not in s.strip(): continue      # 한 단어 ASCII 는 조회 키일 수 있어 원문 유지
         v = None
         for g in groups:

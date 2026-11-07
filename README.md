@@ -5,8 +5,8 @@ PS2 북미판 **Major League Baseball 2K6 (SLUS-21235)**용 비공식 한국어 
 [패치 다운로드](https://github.com/snake759494/major-league-baseball-2k6-ps2-korean-patch/releases/latest) · [기술 설명](docs/TECHNICAL.md) · [재빌드](docs/BUILD.md) · [변경 기록](CHANGELOG.md) · [권리 안내](RIGHTS.md)
 
 릴리즈 첨부 파일은 다음과 같습니다.
-- 한글패치: **MLB_2K6_PS2_KO_v1.3.xdelta**
-- 와이드 패치: **SLUS-21235_170A7A1F.pnach**(한글판용), **SLUS-21235_88BB9A5C.pnach**(원본판용)
+- 한글패치: **MLB_2K6_PS2_KO_v1.4.xdelta**
+- 와이드 패치: **SLUS-21235_B4778610.pnach**(한글판용), **SLUS-21235_88BB9A5C.pnach**(원본판용)
 
 저장소에는 제작 소스, 번역, 와이드 패치만 공개합니다. 원본 디스크 이미지와 완성된 디스크 이미지, 추출한 게임 파일, 글꼴 파일, 외부 실행 파일은 포함하지 않습니다. GitHub가 자동으로 만드는 Source code ZIP/TAR는 저장소 소스를 압축한 것이며 게임 파일이 아닙니다.
 
@@ -34,7 +34,7 @@ PS2 북미판 **Major League Baseball 2K6 (SLUS-21235)**용 비공식 한국어 
 | 결과 ISO 크기 | 3,955,294,208 바이트 (원본과 같음) |
 | 결과 ISO MD5 | `62508448cc5319e3250c95e56d11801f` |
 | 결과 ISO SHA-256 | `71b97134e50251bd7b0d6acf08e65ef7fef5d657495953de57355fe17fa5b700` |
-| 게임 CRC (PCSX2) | `170A7A1F` (원본 `88BB9A5C`) |
+| 게임 CRC (PCSX2) | `B4778610` (원본 `88BB9A5C`) |
 
 원본 게임 파일은 사용자가 직접 준비해야 합니다.
 
@@ -50,7 +50,7 @@ Get-FileHash -Algorithm MD5 -LiteralPath ".\Major League Baseball 2K6 (USA).iso"
 
 ### xdelta UI 사용
 
-1. 릴리즈에서 `MLB_2K6_PS2_KO_v1.3.xdelta`를 받습니다.
+1. 릴리즈에서 `MLB_2K6_PS2_KO_v1.4.xdelta`를 받습니다.
 2. xdelta3 패치를 지원하는 도구(예: xdelta UI)에서 **Apply Patch** 기능을 엽니다.
 3. **Patch**에는 xdelta 파일을, **Source File**에는 해시가 일치하는 원본 `.iso`를 선택합니다.
 4. **Output File**에는 새 파일 이름을 지정합니다(예: `Major League Baseball 2K6 (USA) (Korean).iso`).
@@ -61,10 +61,10 @@ xdelta는 호환성을 위해 압축·2차 압축·파일 경로 헤더 없이 �
 ### 명령줄 사용
 
 ```powershell
-.\xdelta3.exe -d -s ".\Major League Baseball 2K6 (USA).iso" '.\MLB_2K6_PS2_KO_v1.3.xdelta' '.\Major League Baseball 2K6 (USA) (Korean).iso'
+.\xdelta3.exe -d -s ".\Major League Baseball 2K6 (USA).iso" '.\MLB_2K6_PS2_KO_v1.4.xdelta' '.\Major League Baseball 2K6 (USA) (Korean).iso'
 ```
 
-해시 검사까지 한 번에 하려면 `python tools/apply_release.py --xdelta xdelta3.exe --source "Major League Baseball 2K6 (USA).iso" --patch MLB_2K6_PS2_KO_v1.3.xdelta --output "Major League Baseball 2K6 (USA) (Korean).iso"`를 쓰세요.
+해시 검사까지 한 번에 하려면 `python tools/apply_release.py --xdelta xdelta3.exe --source "Major League Baseball 2K6 (USA).iso" --patch MLB_2K6_PS2_KO_v1.4.xdelta --output "Major League Baseball 2K6 (USA) (Korean).iso"`를 쓰세요.
 
 ### PCSX2에서 실행
 
@@ -78,14 +78,14 @@ xdelta는 호환성을 위해 압축·2차 압축·파일 경로 헤더 없이 �
 
 | 파일 | 대상 | 게임 CRC |
 | --- | --- | --- |
-| `SLUS-21235_170A7A1F.pnach` | 이 한글패치 v1.3을 적용한 게임 | `170A7A1F` |
+| `SLUS-21235_B4778610.pnach` | 이 한글패치 v1.4를 적용한 게임 | `B4778610` |
 | `SLUS-21235_88BB9A5C.pnach` | 원본 북미판(영문) | `88BB9A5C` |
 
 두 파일의 내용은 같습니다(고치는 위치가 두 판에서 같음). 파일 이름의 CRC만 다릅니다.
 
 ### 설치 (PCSX2 v2.x)
 
-1. 릴리즈에서 자신의 게임에 맞는 `.pnach` 파일을 받습니다. 한글판이면 `SLUS-21235_170A7A1F.pnach`입니다. 파일 이름을 바꾸지 마세요(PCSX2는 이름의 CRC로 게임을 찾습니다).
+1. 릴리즈에서 자신의 게임에 맞는 `.pnach` 파일을 받습니다. 한글판이면 `SLUS-21235_B4778610.pnach`입니다. 파일 이름을 바꾸지 마세요(PCSX2는 이름의 CRC로 게임을 찾습니다).
 2. PCSX2 `patches` 폴더에 넣습니다.
    - 설치판: `문서\PCSX2\patches\`
    - 휴대용판: `pcsx2-qt.exe`가 있는 폴더의 `patches\`
@@ -99,14 +99,14 @@ xdelta는 호환성을 위해 압축·2차 압축·파일 경로 헤더 없이 �
 ### 끄기·문제 해결
 
 - 끄려면 4번의 체크를 해제하고, 화면비를 4:3으로 되돌립니다.
-- 패치 탭에 항목이 보이지 않으면 파일 이름의 CRC와 게임의 CRC가 다른 것입니다. 게임을 실행한 뒤 **도구 → 로그 표시**에서 `CRC:` 줄을 확인하세요. 한글패치 v1.3을 적용한 ISO면 `170A7A1F`, 원본이면 `88BB9A5C`가 나와야 합니다.
+- 패치 탭에 항목이 보이지 않으면 파일 이름의 CRC와 게임의 CRC가 다른 것입니다. 게임을 실행한 뒤 **도구 → 로그 표시**에서 `CRC:` 줄을 확인하세요. 한글패치 v1.4를 적용한 ISO면 `B4778610`, 원본이면 `88BB9A5C`가 나와야 합니다.
 - 화면이 여전히 4:3이면 **설정 → 그래픽 → 화면비**를 16:9로 바꾸세요.
 - 와이드 모드는 게임이 켜질 때 정해집니다. 실행 중에 체크를 바꿨다면 게임을 다시 시작하세요. 패치를 켠 상태에서 만든 세이브 스테이트를 패치를 끈 상태로 불러와도 비율이 섞일 수 있습니다.
 - PCSX2 1.6 이하에서는 `cheats_ws` 폴더에 넣고 **와이드스크린 패치 사용**을 켜세요. 이 경우 `[Widescreen 16:9]` 줄을 지워야 할 수 있습니다.
 
 #### 라이트판 (ARMSX2 등 안드로이드 에뮬레이터용)
 
-`MLB_2K6_PS2_KO_v1.3_Lite.xdelta`는 메모리 사용을 줄인 별도 빌드입니다. 원본 ISO에 적용하면 `Major League Baseball 2K6 (USA) (Korean Lite).iso`가 됩니다. 번역은 일반판과 같고, 한글 글자 데이터를 1비트로 저장해 게임 RAM 추가 사용량을 약 319KB에서 약 203KB로 줄였습니다. 글자 가장자리가 조금 거칠게 보일 수 있습니다. 실행파일은 일반판과 같아서 와이드 패치도 `SLUS-21235_170A7A1F.pnach`를 그대로 씁니다.
+`MLB_2K6_PS2_KO_v1.4_Lite.xdelta`는 메모리 사용을 줄인 별도 빌드입니다. 원본 ISO에 적용하면 `Major League Baseball 2K6 (USA) (Korean Lite).iso`가 됩니다. 번역은 일반판과 같고, 한글 글자 데이터를 1비트로 저장해 게임 RAM 추가 사용량을 약 319KB에서 약 203KB로 줄였습니다. 글자 가장자리가 조금 거칠게 보일 수 있습니다. 실행파일은 일반판과 같아서 와이드 패치도 `SLUS-21235_B4778610.pnach`를 그대로 씁니다.
 
 | 항목 | 값 |
 | --- | --- |
