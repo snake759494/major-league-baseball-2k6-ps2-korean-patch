@@ -60,7 +60,7 @@ def inplace8(data, tr, groups, lo, hi, stats=None):
     d = bytearray(data); n = 0
     for m in A8.finditer(data, lo, hi):
         o = m.start()
-        if o > 0 and d[o - 1] not in (0,): continue
+        if o > 0 and d[o - 1] != 0 and d[o - 1] < 0x80: continue   # 앞이 ASCII 면 긴 문자열의 꼬리. 0x80 이상(실수 상수 끝 0xff 등)은 별개 문자열
         s = m.group()[:-1].decode()
         if ' ' not in s.strip(): continue      # 한 단어 ASCII 는 조회 키일 수 있어 원문 유지
         v = None

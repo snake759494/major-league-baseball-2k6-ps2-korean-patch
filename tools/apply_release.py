@@ -1,5 +1,5 @@
 """릴리즈 xdelta 를 해시 검사 후 적용.
-사용: python tools/apply_release.py --xdelta xdelta3.exe --source "Major League Baseball 2K6 (USA).iso" --patch MLB_2K6_PS2_KO_v1.2.xdelta --output "Major League Baseball 2K6 (USA) (Korean).iso"
+사용: python tools/apply_release.py --xdelta xdelta3.exe --source "Major League Baseball 2K6 (USA).iso" --patch MLB_2K6_PS2_KO_v1.3.xdelta --output "Major League Baseball 2K6 (USA) (Korean).iso"
 """
 import argparse, hashlib, json, os, subprocess, sys
 

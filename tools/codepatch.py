@@ -255,6 +255,11 @@ def patch(elf):
         w32(U2A, j(labs['u2a'])); w32(U2A + 4, NOP)
         assert r32(PCHR) == lbu('a0', 0, 'v0'), hex(r32(PCHR))
         w32(PCHR, j(labs['pchr'])); w32(PCHR + 4, NOP)
+    # 메모리 카드 화면: 슬롯 이름·저장 이름의 0x80 이상 글자를 '|BOX|'(네모 아이콘)로 바꾸는 검사(sltiu x, y, 0x80)
+    #   → 0xffff(부호 확장 = 항상 참)로 바꿔 한글 코드를 그대로 통과시킴
+    for va in (0x33d7a0, 0x33d854, 0x33e668):
+        w = r32(va); assert w >> 26 == 0x0b and w & 0xffff == 0x80, hex(w)
+        w32(va, (w & 0xffff0000) | 0xffff)
     w32(H1, jal(labs['hook1']))
     w32(HW, j(labs['hadv'])); w32(HW + 4, move('t0', 'a0'))
     w32(H3, jal(labs['hook3'])); w32(H3 + 4, NOP)

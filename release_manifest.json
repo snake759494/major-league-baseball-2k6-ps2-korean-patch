@@ -1,10 +1,10 @@
 {
- "version": "v1.2",
- "date": "2026-11-06",
+ "version": "v1.3",
+ "date": "2026-11-07",
  "game": "Major League Baseball 2K6 (USA) / SLUS-21235 / PS2 (DVD5 ISO)",
- "asset": "MLB_2K6_PS2_KO_v1.2.xdelta",
- "asset_size": 2594364,
- "asset_sha256": "752325788e57c6763c84a777b3360cf0cddb88806f173c6dd4ba0a9a54f02745",
+ "asset": "MLB_2K6_PS2_KO_v1.3.xdelta",
+ "asset_size": 2594728,
+ "asset_sha256": "c7916192e15c298dbcce895eb4d14e0ed68131fd0d962745cb4e08de5cabf800",
  "xdelta_options": "xdelta3 -e -0 -S none -A (no compression, no secondary compression, no application header)",
  "source_iso_size": 3955294208,
  "source_iso_md5": "b88cfd4ae7f2cfca05febba6a3f79db0",
@@ -12,13 +12,13 @@
  "source_iso_sha256": "a3b73c9cea43f7400a079195f21bcb4712d908e8c1ec2ecfae8f3ebab5e0335e",
  "source_elf_crc": "88BB9A5C",
  "output_iso_size": 3955294208,
- "output_iso_md5": "62508448cc5319e3250c95e56d11801f",
- "output_iso_sha1": "fa7423e7dc5011431fb2a923003ab92a0b6476d4",
- "output_iso_sha256": "71b97134e50251bd7b0d6acf08e65ef7fef5d657495953de57355fe17fa5b700",
- "output_elf_crc": "4291A1A3",
+ "output_iso_md5": "e51d43cfc05c04438776d975ce318ab5",
+ "output_iso_sha1": "6bd1179254bb06707c4c6b4be541c0441393f425",
+ "output_iso_sha256": "74d7b3d8ded2644d7063ce2f0fcea09818583626417fd28409ce986da953a0c6",
+ "output_elf_crc": "170A7A1F",
  "widescreen": {
-  "SLUS-21235_4291A1A3.pnach": {
-   "for": "한글판 v1.2 (CRC 4291A1A3)",
+  "SLUS-21235_170A7A1F.pnach": {
+   "for": "한글판·라이트판 v1.3 (CRC 170A7A1F)",
    "size": 357,
    "sha256": "6e412fd4bcc1ee6a120ec1e5375cb9145cb7ce08f72fbe41f6a4b0d5a5157373"
   },
@@ -29,13 +29,13 @@
   }
  },
  "lite": {
-  "asset": "MLB_2K6_PS2_KO_v1.2_Lite.xdelta",
-  "asset_size": 2533871,
-  "asset_sha256": "9ce08abcf2258edf15e9fffdb3c1266eea7d5855d3fb73cf797ff8c5d5cc2c8c",
+  "asset": "MLB_2K6_PS2_KO_v1.3_Lite.xdelta",
+  "asset_size": 2534029,
+  "asset_sha256": "190b597acbc5d8402f6ded754e244f13c08aed7a3b47e8058177da46db720c86",
   "build": "KO_LITE=1",
-  "output_iso_md5": "354d5615fd3d2b477db629e07e762af0",
-  "output_iso_sha1": "f019e48b2cfacf7ca034db676d8ab588b397631c",
-  "output_iso_sha256": "de6ab0db74d83004cd260b9d1a5a5a5ad6049ca72059a64415bc2256b7f3b2be",
-  "output_elf_crc": "4291A1A3"
+  "output_iso_md5": "3c21ee95c5b429583abcf123c0823358",
+  "output_iso_sha1": "3f219f281ae4658d533dd5d52ee9926bc9da2835",
+  "output_iso_sha256": "daf68d76f75f778fd8256c2e093d1a765a5f5fb90ee7e12b727f970223975fa9",
+  "output_elf_crc": "170A7A1F"
  }
 }
