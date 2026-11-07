@@ -19,6 +19,11 @@ class Translator:
             name = os.path.splitext(os.path.basename(fp))[0].split('__')[0]
             m = json.load(open(fp, encoding='utf-8'))
             self.maps.setdefault(name, {}).update({k: v for k, v in m.items() if v})
+        if os.environ.get('KO_NONAMES'):   # 최소판: 팀·선수 이름은 원문 유지(음절 수와 글자 메모리 감소)
+            teams = set(self.maps.get('team', {}))
+            for g in ('name', 'namepair', 'team'): self.maps.pop(g, None)
+            for mp in self.maps.values():
+                for k in [k for k in mp if k in teams]: del mp[k]
         used = {}
         for mp in self.maps.values():
             for v in mp.values():
@@ -47,14 +52,14 @@ class Translator:
 
     def enc16(self, s):
         """UTF-16 문자열용(파이썬 str)."""
-        return ''.join(chr(kfont.KBASE + self.idx[c]) if is_syl(c) else c for c in self._norm(s))
+        return ''.join(chr(kfont.KBASE + self.idx.get(c, 0)) if is_syl(c) else c for c in self._norm(s))
 
     def enc8(self, s):
         """ASCII 문자열용(bytes)."""
         b = bytearray()
         for c in self._norm(s):
             if is_syl(c):
-                i = self.idx[c]; b += bytes([0x80 | (i >> 7), 0x80 | (i & 0x7f)])
+                i = self.idx.get(c, 0); b += bytes([0x80 | (i >> 7), 0x80 | (i & 0x7f)])
             else: b.append(ord(c))
         return bytes(b)
 

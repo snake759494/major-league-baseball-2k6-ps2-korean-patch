@@ -225,9 +225,11 @@ def patch_elf(elf, tr, stats):
     e2, n16 = (elf, 0) if os.environ.get('KO_NOE16') else inplace16(elf, tr, ['elf', 'ui'], lo, hi, room_pad=True, stats=stats)   # 시험용 끄기
     e3, n8 = (e2, 0) if os.environ.get('KO_NOE8') else inplace8(e2, tr, ['elfa'], lo, hi, stats=stats)
     e3 = bytearray(e3)
-    for o in (0x4c0528, 0x4dcaf0, 0x4e2e99, 0x53f000):    # 선수 이니셜 서식 '%c. %s' -> '%c%s'
+    for o in (() if os.environ.get('KO_NONAMES') else (0x4c0528, 0x4dcaf0, 0x4e2e99, 0x53f000)):    # 선수 이니셜 서식 '%c. %s' -> '%c%s'
         assert e3[o:o + 7] == b'%c. %s' + bytes(1); e3[o:o + 7] = b'%c%s' + bytes(3)
-    assert e3[0x4ee5d8:0x4ee5e4] == b'%c. %s (%c)' + bytes(1); e3[0x4ee5d8:0x4ee5e4] = b'%c%s (%c)' + bytes(3)
+    if not os.environ.get('KO_NONAMES'):
+        assert e3[0x4ee5d8:0x4ee5e4] == b'%c. %s (%c)' + bytes(1)
+        e3[0x4ee5d8:0x4ee5e4] = b'%c%s (%c)' + bytes(3)
     e3 = bytes(e3)
     return e3, n16, n8
 

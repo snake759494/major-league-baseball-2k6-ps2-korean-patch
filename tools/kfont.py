@@ -99,11 +99,20 @@ KEEPHI = set()
 # 라이트판(KO_LITE): EE RAM 최소화 — 한글 세트를 모두 1비트로 저장(추가 RAM 약 절반). 텍스처 크기는 일반판과 같음
 #   (텍스처를 모두 원래 크기로 두면 빈칸이 모자라 메모리 카드 안내·로딩 안내 글자가 섞임)
 LITE = bool(os.environ.get('KO_LITE'))
+# 최소판(KO_MIN): 라이트판 + 경기 중 큰 글씨(font8) 한글 크기 축소 → 추가 RAM 최소
+if os.environ.get('KO_MIN'):
+    LITE = True
+    FONTSET['font8'] = (1, 1.0, 0, (0, 0))
+    SETS[1] = SETS[1][:2] + ('Arial_Black_20', SETS[1][3])   # 세트 데이터 주인 = 텍스처를 키우지 않는 폰트(주인 텍스처 확장 시 경기 로딩 멈춤)
+    FONTSET = {k: v[:3] + ((0, 0),) for k, v in FONTSET.items()}   # 텍스처 확장 없음(GS 메모리 그대로) — 확장 시 경기 로딩 멈춤
+    for k_ in ('Arial_11', 'Arial_11_bold'): FONTSET[k_] = (1, 13 / 15, 0, FONTSET[k_][3])   # 세트 0 데이터도 없앰   # 경기 중 큰 글씨도 세트 1 공유(세트 2 데이터 없음)
 if LITE:
     SETS = [(t, px, own, 1) for t, px, own, _ in SETS]
 # 텍스처를 원래 크기로 두면서 칸을 늘리려고 소문자 a-z 자리를 한글 칸으로 쓰는 폰트(소문자는 대문자로 표시)
 RARE = r'#$<>@[\]^_`{|}'
 LOWDROP = set(os.environ['KO_LOWDROP'].split(',')) if os.environ.get('KO_LOWDROP') else set()
+MINK = int(os.environ.get('KO_MINK', '0')) if os.environ.get('KO_MIN') else 0   # 최소판: 폰트별 한글 칸 수 상한
+if os.environ.get('KO_MIN'): LOWDROP = set(FONTSET)   # 최소판: 소문자·드문 기호 자리도 한글 칸(영문 소문자는 대문자로 표시)
 _SETCACHE = {}
 def glyph_set(si, sylls):
     """세트 si 의 비트맵: (cw, ch, gw, gh, [4bpp 칸 바이트...])."""
@@ -164,6 +173,20 @@ def build(u, sylls, cfg=None):
     adv = round(gw * scl + max(1, SETS[si][1] * scl * 0.08))
     if slant: adv = round((gw - slant * gh * 0.5) * scl) + 1
     sx, sy = cw + 2, ch + 1
+    if MINK and (W, H) != (w0, h0):   # 최소판(경기 중 글꼴처럼 원래 크기 지정은 그대로): 칸 MINK 개를 얻는 가장 작은 텍스처(원래 크기 → 가로 2배 → 세로 2배 ...)
+        W, H = w0, h0
+        while True:
+            busy = np.zeros((H + sy, W + sx), bool)
+            for a0, b0, a1, b1 in occ: busy[max(0, b0):max(0, b1), max(0, a0):max(0, a1)] = True
+            k = 0
+            for y in range(0, H - ch + 1):
+                x = 0
+                while x <= W - cw:
+                    if not busy[y:y + sy, x:x + sx].any(): k += 1; busy[y:y + sy, x:x + sx] = True; x += sx + (sx & 1)
+                    else: x += 2
+            if k >= MINK or W * H >= 256 * 256: break
+            if W < H: W *= 2
+            else: H *= 2
     # 빈 공간을 1픽셀(x 는 4bpp 바이트 정렬로 2픽셀) 단위로 훑어 칸을 촘촘히 배치. 칸 사이 여백 가로 2·세로 1
     busy = np.zeros((H + sy, W + sx), bool)
     for a0, b0, a1, b1 in occ: busy[max(0, b0):max(0, b1), max(0, a0):max(0, a1)] = True
@@ -174,7 +197,7 @@ def build(u, sylls, cfg=None):
             if not busy[y:y + sy, x:x + sx].any():
                 slots.append((x, y)); busy[y:y + sy, x:x + sx] = True; x += sx + (sx & 1)
             else: x += 2
-    K = min(len(slots), 0x7ffe); slots = slots[:K]
+    K = min(len(slots), 0x7ffe, MINK or 0x7ffe); slots = slots[:K]
     n = len(sylls)
     pix = np.zeros((H, W), np.uint8)
     t0 = np.frombuffer(tex0, np.uint8).reshape(h0, w0 // 2)
